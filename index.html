@@ -33,17 +33,10 @@
 
 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
     <legend>Bluetooth Reconnect Alert</legend>
+    	<input name="key1" id="key1-1" data-type="int" value="1" type="radio">
+        <label for="key1-1">Yes</label>
     	<input name="key1" id="key1-0" data-type="int" value="0" checked="checked" type="radio">
         <label for="key1-0">No</label>
-        <input name="key1" id="key1-1" data-type="int" value="1" type="radio">
-        <label for="key1-1">Yes</label>
-</fieldset>
-
-<fieldset data-role="controlgroup" data-mini="true">
-    <div class="ui-field-contain">
-      <label for="cRadius" id="label_cRadius">Circle Size</label>
-      <input name="cRadius" id="trans_cRadius" placeholder="6" value="6" data-mini="true" type="text" maxlength="2">
-    </div>
 </fieldset>
 
 </div>
@@ -58,14 +51,43 @@
         <label for="key2-0">Inverted</label>
 </fieldset>
 
+<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+    <legend>Battery Bar</legend>
+    	<input name="key4" id="key4-1" data-type="int" value="1" checked="checked" type="radio">
+        <label for="key4-1">Enabled</label>
+        <input name="key4" id="key4-0" data-type="int" value="0" type="radio">
+        <label for="key4-0">Disabled</label>
+</fieldset>
 
+<div data-role="collapsible">
+        <h3>Advanced</h3>
+<i>These options if used wrongly can make the watchface look terrible :/</i>
+
+<fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
+    <legend>Circle Drawing Algorithm</legend>
+    	<input name="key3" id="key3-1" data-type="int" value="1" checked="checked" type="radio">
+        <label for="key3-1">Scales with time (larger minute, larger circle)</label>
+        <input name="key3" id="key3-0" data-type="int" value="0" type="radio">
+        <label for="key3-0">Linear</label>
+</fieldset>
+
+<fieldset data-role="controlgroup" data-mini="true">
+    <div class="ui-field-contain">
+      <label for="algorithmRadius" id="label_algorithmRadius">Circle Size</label>
+      <i>This applies to the circle drawing algorithm. The larger the number, the larger the circle.</i>
+      <input name="algorithmRadius" id="trans_algorithmRadius" placeholder="6" value="6" data-mini="true" type="text" maxlength="2">
+    </div>
+</fieldset>
+</div>
 
 </div>
 
 <div data-role="collapsible">
 <h3>Pebble Time</h3>
 
-Coming soon...
+Coming soon...<br><br>
+
+(Hi Philipp!)
 
 </div>
 
@@ -83,6 +105,11 @@ Coming soon...
       function saveOptions() {
         var options = {
           'btdisalert':     Number( $("input[name=key0]:checked").val() ),
+          'btrealert':     Number( $("input[name=key1]:checked").val() ),
+          'theme':     Number( $("input[name=key2]:checked").val() ),
+          'algorithmType': Number($("input[name=key3]:checked").val()),
+          'batteryBar': Number($("input[name=key4]:checked").val()),
+          'algorithmRadius': Number($("input[name=cRadius]").val())
         }
         return options;
       }
@@ -93,6 +120,15 @@ Coming soon...
           ls_pto = JSON.parse(window.localStorage.circletime);
           $("input[name=key0][id=key0-"+ls_pto["btdisalert"]+"]").prop('checked',true);
           $("input[name=key0]").checkboxradio('refresh');
+          $("input[name=key1][id=key1-"+ls_pto["btrealert"]+"]").prop('checked',true);
+          $("input[name=key1]").checkboxradio('refresh');
+          $("input[name=key2][id=key2-"+ls_pto["theme"]+"]").prop('checked',true);
+          $("input[name=key2]").checkboxradio('refresh');
+          $("input[name=key3][id=key3-"+ls_pto["algorithmType"]+"]").prop('checked',true);
+          $("input[name=key3]").checkboxradio('refresh');
+          $("input[name=key4][id=key4-"+ls_pto["batteryBar"]+"]").prop('checked',true);
+          $("input[name=key4]").checkboxradio('refresh');
+          $("input[name=algorithmRadius]").val(ls_pto["algorithmRadius"]);
         }
        }
         $("#b-cancel").click(function() {
@@ -103,7 +139,7 @@ Coming soon...
           console.log("Submit");
           ls_pto = JSON.stringify(saveOptions());
           if (typeof window.localStorage !== "undefined") {
-            window.localStorage.s = ls_pto;
+            window.localStorage.circletime = ls_pto;
           }
           var location = "pebblejs://close#" + ls_pto;
           console.log("Warping to: " + location);
