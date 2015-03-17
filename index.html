@@ -5,20 +5,21 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head> 
 
-<div data-role="page" id="main">
+<div data-role="page" id="main" data-theme="b">
       <div data-role="header" class="jqm-header">
         <h1>Circle Time</h1>
       </div>
 
       <div data-role="content">
 
-<div data-role="collapsible-set" data-corners="true" data-theme="a" data-content-theme="a" id="config" class="ui-collapsible-set ui-group-theme-a ui-corner-all">
+<div data-role="collapsible-set" data-theme="b" data-content-theme="b" data-mini="false">
 
-<div data-role="collapsible" data-theme="a" data-collapsed="true" data-inset="false" data-iconpos="right" data-expanded-icon="carat-u" data-collapsed-icon="carat-d" class="mySection ui-collapsible ui-collapsible-themed-content" id="myS_general"><h2><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-a ui-icon-carat-u">Functionality<span class="ui-collapsible-heading-status"></span></a></h2>
+<div data-role="collapsible">
+<h3>Functionality</h3>
 
 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
     <legend>Bluetooth Disconnect Alert</legend>
-    	<input name="key0" id="key0-1" data-type="int" value="1" checked="checked" type="radio">
+      <input name="key0" id="key0-1" data-type="int" value="1" checked="checked" type="radio">
         <label for="key0-1">Yes</label>
         <input name="key0" id="key0-0" data-type="int" value="0" type="radio">
         <label for="key0-0">No</label>
@@ -26,9 +27,9 @@
 
 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
     <legend>Bluetooth Reconnect Alert</legend>
-    	<input name="key1" id="key1-1" data-type="int" value="1" type="radio">
+      <input name="key1" id="key1-1" data-type="int" value="1" type="radio">
         <label for="key1-1">Yes</label>
-    	<input name="key1" id="key1-0" data-type="int" value="0" checked="checked" type="radio">
+      <input name="key1" id="key1-0" data-type="int" value="0" checked="checked" type="radio">
         <label for="key1-0">No</label>
 </fieldset>
 
@@ -38,7 +39,7 @@
         <h3>Look and Feel</h3>
 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
     <legend>Theme</legend>
-    	<input name="key2" id="key2-1" data-type="int" value="1" checked="checked" type="radio">
+      <input name="key2" id="key2-1" data-type="int" value="1" checked="checked" type="radio">
         <label for="key2-1">Classic</label>
         <input name="key2" id="key2-0" data-type="int" value="0" type="radio">
         <label for="key2-0">Inverted</label>
@@ -46,7 +47,7 @@
 
 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
     <legend>Battery Bar</legend>
-    	<input name="key4" id="key4-1" data-type="int" value="1" checked="checked" type="radio">
+      <input name="key4" id="key4-1" data-type="int" value="1" checked="checked" type="radio">
         <label for="key4-1">Enabled</label>
         <input name="key4" id="key4-0" data-type="int" value="0" type="radio">
         <label for="key4-0">Disabled</label>
@@ -58,7 +59,7 @@
 
 <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
     <legend>Circle Drawing Algorithm</legend>
-    	<input name="key3" id="key3-1" data-type="int" value="1" checked="checked" type="radio">
+      <input name="key3" id="key3-1" data-type="int" value="1" checked="checked" type="radio">
         <label for="key3-1">Scales with time (larger minute, larger circle)</label>
         <input name="key3" id="key3-0" data-type="int" value="0" type="radio">
         <label for="key3-0">Linear</label>
@@ -89,7 +90,7 @@ Coming soon...<br><br>
         <div class="ui-body ui-body-c">
           <fieldset class="ui-grid-a">
               <div class="ui-block-a"><button type="submit" data-theme="d" id="b-cancel">Cancel</button></div>
-              <div class="ui-block-b"><button type="submit" data-theme="a" id="b-submit">Save</button></div>
+              <div class="ui-block-b"><button type="submit" data-theme="b" id="b-submit">Save</button></div>
           </fieldset>
         </div>
       </div>
@@ -100,15 +101,15 @@ Coming soon...<br><br>
           'btdisalert':     Number( $("input[name=key0]:checked").val() ),
           'btrealert':     Number( $("input[name=key1]:checked").val() ),
           'theme':     Number( $("input[name=key2]:checked").val() ),
-          'algorithmType': Number($("input[name=key3]:checked").val()),
-          'batteryBar': Number($("input[name=key4]:checked").val()),
-          'algorithmRadius': Number($("input[name=cRadius]").val())
+          'algorithmType': Number( $("input[name=key3]:checked").val() ),
+          'batteryBar': Number( $("input[name=key4]:checked").val() ),
+          'algorithmRadius': Number( $("input[name=cRadius]").val() )
         }
         return options;
       }
       $().ready(function() {
        if (typeof window.localStorage !== "undefined") {
-       	console.log("Not undefined :)");
+        console.log("Not undefined :)");
         if (window.localStorage.circletime) {
           ls_pto = JSON.parse(window.localStorage.circletime);
           $("input[name=key0][id=key0-"+ls_pto["btdisalert"]+"]").prop('checked',true);
